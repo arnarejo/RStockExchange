@@ -13,40 +13,8 @@ getwd()
 ```{r}
 # list.files()
 load("filteredData.RData")
+str(filteredData)
 ```
-
-# set column names
-
-```{r}
-colNames <- c("Date", "Symbol", "SectorCode", "Name", "Open", "High", "Low", "Close", "Volume")
-```
-
-# read and merge all files
-
-```{r}
-temp <- list.files("./data/")
-# Note: make sure no empty files in the folder (may develop code to remove empty files)
-stockData <- do.call(rbind, lapply(temp, function(x) read.csv(paste0("./data/",x), sep="|", header=FALSE)))
-```
-
-# apply headers, and format data
-```{r}
-stockData <- stockData[,1:9]
-names(stockData) <- colNames
-stockData$Date <- dmy(stockData$Date)
-dim(stockData)
-```
-# filter selective stocks for visualization
-```{r}
-stocks <- c("OGDC", "POL", "PPL")
-columns <- c("Date", "Symbol", "Name", "Close", "Volume")
-filteredData <- stockData[stockData$Symbol %in% stocks,columns]
-dim(filteredData)
-```
-```{r}
-head(filteredData)
-```
-
 
 ```{r}
 ggplot(filteredData, aes(x = Date, y = Close, color = Symbol)) + geom_line()

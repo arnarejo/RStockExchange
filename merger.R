@@ -21,7 +21,6 @@ stockData <- stockData[,1:9]
 colNames <- c("Date", "Symbol", "SectorCode", "Name", "Open", "High", "Low", "Close", "Volume")
 names(stockData) <- colNames
 
-
 stockData$Date <- dmy(stockData$Date)
 
 # filter selective stocks for visualization

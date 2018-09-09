@@ -9,8 +9,8 @@ load("filteredData.RData")
 
 stocks <- unique(filteredData$Symbol)
 
-ui <- dashboardPage(skin = "green",
-    dashboardHeader(title="Stock App",
+ui <- dashboardPage(
+    dashboardHeader(title="PSX stock app",
                     titleWidth = 350
                     ),
     dashboardSidebar(
@@ -19,7 +19,11 @@ ui <- dashboardPage(skin = "green",
             selectInput(inputId="stockSelector", label="Select The stock", choices=stocks))
         ),
     dashboardBody(
+        tags$head(
+            tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
+        ),
         fluidRow(
+            br(),
             column(width = 12,  box(title = "Stock Graph", width = NULL, solidHeader = FALSE, plotOutput("stockPlot")))
         )
     )
@@ -27,20 +31,22 @@ ui <- dashboardPage(skin = "green",
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-   
+
    output$stockPlot <- renderPlot({
-       
+
        data <- filteredData[filteredData$Symbol == input$stockSelector,]
-       
+
        ggplot(data, aes(x = Date, y = Close)) +
            geom_line() +
-           labs(title = "Stock Price Chart", y = "Closing Price", x = "") + 
+
+           labs(y = "Closing Price", x = "Time") +
            theme_tq() +
-           theme(text = element_text(size=17))
-       
+           theme(text = element_text(size=17),
+                 plot.background = element_rect(fill = "#F6F4E8"),
+                 panel.background = element_rect(fill = "#F6F4E8"))
+
    })
 }
 
-# Run the application 
+# Run the application
 shinyApp(ui = ui, server = server)
-

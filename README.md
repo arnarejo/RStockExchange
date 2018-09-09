@@ -1,4 +1,6 @@
 # STOCK MARKET VISUALIZATION
+
+[LIVE SHINY APP](https://narejo.shinyapps.io/stocks/)  
 Pakistan Stock Exchange (PSX) is main stock exchange in Pakistan. There is no free source of stock prices trend. I have used R to collect raw, merge and visualize in Shiny.
 
 My main objectives for this project are;

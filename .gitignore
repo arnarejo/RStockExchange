@@ -1,2 +1,5 @@
 .Rhistory
 data/*
+app/rsconnect
+app/www/filteredData.RData
+error
